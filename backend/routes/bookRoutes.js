@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createBook,
+  deleteBook,
   getBookById,
   getBooks,
   updateBook,
@@ -12,6 +13,7 @@ router.get("/", getBooks);
 router.get("/:id", getBookById);
 router.post("/", createBook);
 router.put("/:id", updateBook);
-// TODO: Add DELETE route
+
+router.delete('/:id', deleteBook);
 
 export default router;

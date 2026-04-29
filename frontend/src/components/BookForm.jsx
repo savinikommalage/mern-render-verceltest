@@ -18,9 +18,10 @@ function BookForm({ initialValues, onSubmit, submitText }) {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(formData);
-  };
+  e.preventDefault();
+  console.log(formData); // ✅ ADD HERE
+  onSubmit(formData);
+};
 
   return (
     <form className="form-card" onSubmit={handleSubmit}>
