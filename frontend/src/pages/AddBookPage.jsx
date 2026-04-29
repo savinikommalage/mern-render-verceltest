@@ -6,12 +6,20 @@ function AddBookPage() {
   const navigate = useNavigate();
 
   const handleCreate = async (formData) => {
+    const payload = {
+      title: formData.title.trim(),
+      author: formData.author.trim(),
+      description: formData.description.trim(),
+      genre: formData.genre.trim(),
+      imageUrl: formData.imageUrl?.trim() || "",
+    };
+
     try {
-      await createBook(formData);
+      await createBook(payload);
       navigate("/");
     } catch (error) {
-      console.error("Failed to create book", error);
-      alert("Failed to create book");
+      console.error("Failed to create book", error.response?.data || error);
+      alert(error.response?.data?.error || "Failed to create book");
     }
   };
 

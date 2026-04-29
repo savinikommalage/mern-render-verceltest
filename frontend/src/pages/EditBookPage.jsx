@@ -22,12 +22,20 @@ function EditBookPage() {
   }, [id]);
 
   const handleUpdate = async (formData) => {
+    const payload = {
+      title: formData.title.trim(),
+      author: formData.author.trim(),
+      description: formData.description.trim(),
+      genre: formData.genre.trim(),
+      imageUrl: formData.imageUrl?.trim() || "",
+    };
+
     try {
-      await updateBook(id, formData);
+      await updateBook(id, payload);
       navigate("/");
     } catch (error) {
-      console.error("Failed to update book", error);
-      alert("Failed to update book");
+      console.error("Failed to update book", error.response?.data || error);
+      alert(error.response?.data?.error || "Failed to update book");
     }
   };
 

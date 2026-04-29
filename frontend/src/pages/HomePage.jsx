@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getBooks } from "../api/bookApi.js";
+import { deleteBook } from "../api/bookApi.js";
 import BookCard from "../components/BookCard.jsx";
 
 function HomePage() {
@@ -17,11 +18,15 @@ function HomePage() {
     }
   };
 
-  // TODO: Implement handleDelete logic here
-  const deleteBook = async (id) => {
-  await axios.delete(`/api/books/${id}`);
-  setBooks(books.filter(book => book._id !== id));
-};
+  const handleDelete = async (id) => {
+    try {
+      await deleteBook(id);
+      setBooks((currentBooks) => currentBooks.filter((book) => book._id !== id));
+    } catch (error) {
+      console.error("Failed to delete book", error.response?.data || error);
+      alert(error.response?.data?.message || "Failed to delete book");
+    }
+  };
 
   useEffect(() => {
     fetchBooks();
@@ -41,9 +46,7 @@ function HomePage() {
       ) : (
         <div className="grid">
           {books.map((book) => (
-            <BookCard book={book} onDelete={deleteBook} />
-            // TODO: pass onDelete prop to BookCard
-            
+            <BookCard key={book._id} book={book} onDelete={handleDelete} />
           ))}
         </div>
       )}

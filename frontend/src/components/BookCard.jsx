@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function BookCard({ book }) {
+function BookCard({ book, onDelete }) {
   return (
     <div className="card">
       <img
@@ -10,11 +10,12 @@ function BookCard({ book }) {
       />
       <h3>{book.title}</h3>
       <p><strong>Author:</strong> {book.author}</p>
-      {/* TODO: Display Description and Genre here */}
+      <p><strong>Description:</strong> {book.description}</p>
+      <p><strong>Genre:</strong> {book.genre}</p>
 
       <div className="card-actions">
         <Link className="btn secondary" to={`/edit-book/${book._id}`}>Edit</Link>
-        {/* TODO: Add Delete Button here */}
+        <button className="btn danger" onClick={() => onDelete(book._id)}>Delete</button>
       </div>
     </div>
   );
